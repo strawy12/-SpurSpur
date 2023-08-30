@@ -14,13 +14,14 @@ public class Destructible : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         Explosion();
     }
 
     public void Explosion()
     {
         defaultObject.SetActive(false);
+        Debug.Log(11);
         destroyedObject.gameObject.SetActive(true);
         destroyedObject.Explosion(defaultObject.transform.position, power, radius);
     }

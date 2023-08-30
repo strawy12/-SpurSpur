@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class BreakModel : MonoBehaviour
 {
-    private List<Rigidbody> modelRigidList;
+    private List<Rigidbody> modelRigidList = null;
 
-    private void Init()
+    private void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
+        if (modelRigidList != null) return;
         modelRigidList = new List<Rigidbody>();
         modelRigidList.AddRange(GetComponentsInChildren<Rigidbody>());
     }
