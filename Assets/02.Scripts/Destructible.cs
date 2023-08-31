@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Destructible : MonoBehaviour
@@ -15,6 +16,24 @@ public class Destructible : MonoBehaviour
     [ContextMenu("Setting")]
     public void Setting()
     {
+        defaultObject = transform.GetChild(0).gameObject;
+        if(transform.childCount > 2)
+        {
+            GameObject parent = new GameObject("BreakModel");
+            parent.transform.SetParent(transform);
+            List<Transform> children = new List<Transform>();
+            for (int i = 1;  i <  transform.childCount; i++)
+            {
+                if (transform.GetChild(i) == parent.transform) continue;
+                children.Add(transform.GetChild(i));
+            }
+
+            children.ForEach(x=>x.transform.SetParent(parent.transform));
+        }
+
+        destroyedObject = transform.GetChild(1).AddComponent<BreakModel>();
+        destroyedObject.gameObject.name = "BreakModel";
+
         defaultObject.AddComponent<Rigidbody>();
         defaultObject.GetComponent<Rigidbody>().isKinematic = true;
         defaultObject.AddComponent<BoxCollider>();
