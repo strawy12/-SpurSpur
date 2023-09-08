@@ -4418,8 +4418,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyedObject: {fileID: 6803892397268583738}
   defaultObject: {fileID: 7368627989253137811}
-  power: 30
-  radius: 10
+  power: 450
+  radius: 150
 --- !u!1 &3566162595245094551
 GameObject:
   m_ObjectHideFlags: 0

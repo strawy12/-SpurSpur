@@ -4041,8 +4041,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyedObject: {fileID: 2412318421726897595}
   defaultObject: {fileID: 2513868735958314080}
-  power: 100
-  radius: 100
+  power: 450
+  radius: 120
 --- !u!1 &8060498389390752683
 GameObject:
   m_ObjectHideFlags: 0
