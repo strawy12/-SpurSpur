@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BreakModel : MonoBehaviour
 {
-    private List<Rigidbody> modelRigidList = null;
+    private List<Rigidbody> _modelRigidList = null;
 
     private void Start()
     {
@@ -14,14 +14,14 @@ public class BreakModel : MonoBehaviour
 
     public void Init()
     {
-        if (modelRigidList != null) return;
-        modelRigidList = new List<Rigidbody>();
-        modelRigidList.AddRange(GetComponentsInChildren<Rigidbody>());
+        if (_modelRigidList != null) return;
+        _modelRigidList = new List<Rigidbody>();
+        _modelRigidList.AddRange(GetComponentsInChildren<Rigidbody>());
     }
 
     public void Explosion(Vector3 explosionPos, float power, float radius)
     {
         Init();
-        modelRigidList.ForEach((x) => x.AddExplosionForce(power, explosionPos, radius, 3.0f));
+        _modelRigidList.ForEach((x) => x.AddExplosionForce(power, explosionPos, radius, 3.0f));
     }
 }
