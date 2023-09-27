@@ -6,17 +6,19 @@ using UnityEngine;
 public class Destructible : MonoBehaviour
 {
     [SerializeField]
-    private BreakModel destroyedObject;
+    private BreakModel _destroyedObject;
     [SerializeField]
-    private GameObject defaultObject;
+    private GameObject _defaultObject;
 
-    public float power = 100;
-    public float radius = 100;
+    public float _power = 100;
+    public float _radius = 100;
+
+    private bool _isDestructed = false;
 
     [ContextMenu("Setting")]
     public void Setting()
     {
-        defaultObject = transform.GetChild(0).gameObject;
+        _defaultObject = transform.GetChild(0).gameObject;
         if(transform.childCount > 2)
         {
             GameObject parent = new GameObject("BreakModel");
@@ -31,31 +33,27 @@ public class Destructible : MonoBehaviour
             children.ForEach(x=>x.transform.SetParent(parent.transform));
         }
 
-        destroyedObject = transform.GetChild(1).AddComponent<BreakModel>();
-        destroyedObject.gameObject.name = "BreakModel";
+        _destroyedObject = transform.GetChild(1).AddComponent<BreakModel>();
+        _destroyedObject.gameObject.name = "BreakModel";
 
-        defaultObject.AddComponent<Rigidbody>();
-        defaultObject.GetComponent<Rigidbody>().isKinematic = true;
-        defaultObject.AddComponent<BoxCollider>();
+        _defaultObject.AddComponent<Rigidbody>();
+        _defaultObject.GetComponent<Rigidbody>().isKinematic = true;
+        _defaultObject.AddComponent<BoxCollider>();
 
-        foreach(Transform child in destroyedObject.transform)
+        foreach(Transform child in _destroyedObject.transform)
         {
             child.gameObject.AddComponent<Rigidbody>();
             child.gameObject.AddComponent<MeshCollider>().convex = true;
         }
     }
 
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(1f);
-        Explosion();
-    }
-
     public void Explosion()
     {
-        defaultObject.SetActive(false);
-        destroyedObject.gameObject.SetActive(true);
-        destroyedObject.Explosion(defaultObject.transform.position, power, radius);
+        if (_isDestructed) return;
+        _isDestructed = true;
+        _defaultObject.SetActive(false);
+        _destroyedObject.gameObject.SetActive(true);
+        _destroyedObject.Explosion(_defaultObject.transform.position, _power, _radius);
     }
 
 
